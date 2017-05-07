@@ -1,0 +1,56 @@
+package org.drools.workshop;
+import org.drools.workshop.model.*;
+import java.util.ArrayList;
+
+query "Get All Cat Items" ($item)
+    $ci: CartItem( item == $item )
+end
+
+declare CartFull
+
+end
+
+declare CartItem
+    @key item: Item
+    @key position: int
+end
+
+rule "Item Added"
+    when
+        not(CartFull())
+        $i: Item()
+        ArrayList($size: size) from collect(CartItem())
+        not(CartItem(item == $i))
+    then
+        channels["outboundChannel"].send(">> New Item Added: "+ $i);
+        insert(new CartItem($i, $size));
+end
+
+rule "Shopping Cart Full"
+    when
+        ArrayList($size: size >= 3) from collect(CartItem())
+    then
+        
+        
+        channels["outboundChannel"].send(">> The Shopping Cart is Full with : "+$size +" items");
+        insertLogical(new CartFull());
+end
+
+rule "Shopping Cart Full - Remove incoming item"
+    when
+        CartFull()
+        $i: Item()
+        not(CartItem(item == $i))
+    then
+        channels["outboundChannel"].send(">> Removing item because there is no more space : "+$i);
+        retract($i);
+        
+end
+
+rule "Shopping Cart - Current total"
+    when
+        $total: Double() from accumulate(CartItem($price: item.price), sum($price))
+    then
+        channels["outboundChannel"].send(">> The current total is: "+ $total);
+end
+
