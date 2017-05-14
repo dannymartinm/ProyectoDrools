@@ -1,62 +1,97 @@
 package org.drools.workshop;
 import org.drools.workshop.model.*;
 
-rule "Category By Age: Adult"
+    
+    
+declare Recomendacion
+    ejercicio: Ejercicio @key
+end
+//declare any global variables here
+
+rule "Recomendacion"
     when
-        $u: User( age >= 18, category == null ||  == "")
+        $ej: Ejercicio()
     then
-        $u.setCategory("Adult");
+        insert(new Recomendacion($ej));
 end
 
-rule "Category By Age: Teenager"
+rule "Recomendacion por intentos"
+
     when
-        $u: User( age >= 12 && < 18, category == null || == "")
+        //conditions
+        $a: Alumno()
+        $ej: Ejercicio()
+        $ae: AlumnoEjercicio (intento > 2, matricula == $a.matricula, id_ejercicio == $e.id_ejercicio)
+        $ej2: Ejercicio(id_ejercicio == $ae.id_ejercicio, tema == $ej.tema, dificultad < $ej.dificultad)
     then
-        $u.setCategory("Teenager");
+        //actions
+        insert(new Recomendacion($ej2));
 end
 
-rule "Category By Age: Children"
+rule "Recomendacion por estado y calif mayor 85"
     when
-        $u: User( age < 12 && >= 0, category == null || == "")
+        $a : Alumno()
+        $ej : Ejercicio()
+        $ae: AlumnoEjercicio (estado == 2, calificacion >85, matricula == $a.matricula, id_ejercicio == $e.id_ejercicio)
+        $ej2: Ejercicio(id_ejercicio == $ae.id_ejercicio, tema == $ej.tema, dificultad >= $ej.dificultad)
     then
-        $u.setCategory("Children");
+        insert(new Recomendacion($ej2));
 end
 
-rule "Category By Age: Not Valid"
+rule "Recomendacion por estado y calif menor igual 85 y mayor o igual que 70"
     when
-        $u: User( age < 0, category == null || == "")
+        $a : Alumno()
+        $ej : Ejercicio()
+        $ae: AlumnoEjercicio (estado == 2, calificacion <=85 && calificacion >= 70, matricula == $a.matricula, id_ejercicio == $e.id_ejercicio)
+        $ej2: Ejercicio(id_ejercicio == $ae.id_ejercicio, tema == $ej.tema, dificultad == $ej.dificultad)
     then
-        $u.setCategory("Not Valid");
+        insert(new Recomendacion($ej2));
 end
 
-rule "hermano"
-     when
-	$pa1 : Padre()
-	$pa2 : Padre($pa1.padre == padre && $pa1.hijo != hijo)
-     then
-	insert(new Hermano($pa1.getHijo(), $pa2.getHijo()));
-end
-
-rule "ancestro1"
+rule "Recomendacion por estado y calif menor que 70"
     when
-        $p : Padre()
+        $a : Alumno()
+        $ej : Ejercicio()
+        $ae: AlumnoEjercicio (estado == 2, calificacion <70, matricula == $a.matricula, id_ejercicio == $e.id_ejercicio)
+        $ej2: Ejercicio(id_ejercicio == $ae.id_ejercicio, tema == $ej.tema, dificultad <= $ej.dificultad)
     then
-        insert(new Ancestro($p.getPadre(), $p.getHijo())); //el ancestro mas directo, es mi propio padre. 
+        insert(new Recomendacion($ej2));
 end
 
-rule "ancestro2"
-    when 
-        $p : Padre()
-        $a : Ancestro($p.hijo == ancestro)
-    then
-        insert(new Ancestro($p.getPadre(), $a.getDescendiente()));
-end
-
-rule "abuelo"
+rule "Recomendacion por promedio menor a 85"
     when
-        $p : Padre() //es el abuelo
-        $p1 : Padre($p.hijo == padre, $p.padre != hijo ) //es el nieto
-      //  eval($p.getHijo() == $p1.getPadre())
+        //conditions
+        $a: Alumno()
+        $as: Asignatura()
+        $aa: AlumnoAsignatura(promedio < 85, matricula == $a.matricula, nombreAsignatura == $as.nombreAsignatura )
+        $ej2: Ejercicio(dificultad <= 4)
     then
-        insert(new Abuelo($p.getPadre(), $p1.getHijo()));
+        //actions
+    insert(new Recomendacion($ej2));
 end
+
+rule "Recomendacion por promedio mayor o igual a 85"
+    when
+        //conditions
+        $a: Alumno()
+        $as: Asignatura()
+        $aa: AlumnoAsignatura(promedio >= 85, matricula == $a.matricula, nombreAsignatura == $as.nombreAsignatura )
+        $ej2: Ejercicio(dificultad == 5)
+    then
+        //actions
+    insert(new Recomendacion($ej2));
+end
+rule " recomendacion predecesor"
+    when
+    $a : Alumno()
+    $as : Asignatura()//predecesora
+    $as2 : Asignatura() //actual
+    $alas : AlumnoAsignatura(nombreAsignatura == $as2.nombreAsignatura, $a.matricula == matricula) 
+    $ej : Ejercicio()
+    $ase : AsignaturaEjercicio( id_ejercicio == $ej.id_ejercicio , nombreAsignatura == $alas.nombreAsignatura, predecesor == $as.nombreAsignatura, $alas.promedio <= 70)
+    $ej2 : Ejercicio(id_ejercicio == $ase.id_ejercicio, dificultad >= 0)
+    then
+    insert(new Recomendacion($ej2));
+end
+
+    
