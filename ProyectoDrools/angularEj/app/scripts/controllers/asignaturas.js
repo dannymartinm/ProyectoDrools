@@ -8,18 +8,18 @@
  * Controller of the angularEjApp
  */
 angular.module('angularEjApp')
-  .controller('MainCtrl', function ($scope, $http, $window) {
+  .controller('AsignaturasCtrl', function ($scope, $http, $window) {
 
 
     $scope.listado = function(){
-      $http.get('http://localhost:8080/api/alumnos')
+      $http.get('http://localhost:8080/api/asignaturas')
         .then(function(response){
           var listado = response.data;
           $scope.alumnos = listado;
         });
     }
 
-  	$scope.insertarAlumno = function(){
+  	$scope.insertarAlumnoAsignatura = function(){
   		var alumnoInsertar = {
   			"nombre": $scope.nombre,
   			"matricula": $scope.matricula

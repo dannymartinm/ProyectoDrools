@@ -9,19 +9,17 @@ import javax.ws.rs.Path;
 import javax.ws.rs.Produces;
 import org.drools.workshop.model.*;
 
-@Path("alumnos")
-public interface AlumnoService{
+@Path("asignaturas")
+public interface AsignaturaService{
+   
     @POST
     @Consumes("application/json")
     @Produces("application/json")
-    @Path("/inserta")
-    public Alumno insertaAlumno(@NotNull Alumno alumno);
+    @Path("/insertaAsignatura")
+    public Asignatura insertaAsignatura(@NotNull Asignatura asignatura);
     
-        
     @GET
     @Produces("application/json")
     @Path("/")
-    public List<Alumno> getAlumnos();
-
-   
+    public List<Asignatura> getAsignatura();
 }

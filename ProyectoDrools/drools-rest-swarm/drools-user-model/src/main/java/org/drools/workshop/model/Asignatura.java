@@ -1,14 +1,9 @@
 package org.drools.workshop.model;
-
 import javax.xml.bind.annotation.XmlRootElement;
-
-/**
- *
- * @author Equipo Rocket
- */
-@XmlRootElement
-
 import java.util.*;
+
+
+@XmlRootElement
 
 public class Asignatura {
 	

@@ -13,40 +13,39 @@ import org.kie.api.runtime.KieSession;
 
 
 @ApplicationScoped
-public class AlumnoServiceImpl implements AlumnoService {
+public class EjercicioServiceImpl implements EjercicioService {
 
     @Inject
     @KReleaseId(groupId = "org.drools.workshop", artifactId = "drools-user-kjar", version = "1.0-SNAPSHOT")
     @KSession
     private KieSession kSession;
 
-    public AlumnoServiceImpl() {
+    public EjercicioServiceImpl() {
     }
 
     @Override
-    public Alumno insertaAlumno(Alumno alumno) {
+    public Ejercicio insertaEjercicio(Ejercicio ejercicio) {
         System.out.println(">> kSession: " + kSession);
         printKieSessionAllFacts(kSession);
-        System.out.println(">> Alumno: " + alumno);
-        kSession.insert(alumno);
+        System.out.println(">> Ejercicio: " + ejercicio);
+        kSession.insert(ejercicio);
         int fired = kSession.fireAllRules();
         System.out.println(">> Fired: " + fired);
-        return alumno;
+        return ejercicio;
     }
 
 	
     @Override
-    public List<Alumno> getAlumnos() {
-        List<Alumno> alumnos = new ArrayList<Alumno>();
+    public List<Ejercicio> getEjercicios() {
+        List<Ejercicio> ejercicios = new ArrayList<Ejercicio>();
         for (Object o : kSession.getObjects()) {
-            if (o instanceof Alumno) {
-                alumnos.add((Alumno) o);
+            if (o instanceof Ejercicio) {
+                ejercicios.add((Ejercicio) o);
             }
         }
-        return alumnos;
+        return ejercicios;
     }
 
-  
 
     private void printKieSessionAllFacts(KieSession kSession) {
         System.out.println(" >> Start - Printing All Facts in the Kie Session");

@@ -1,0 +1,19 @@
+<div ng-controller="AsignaturasCtrl">
+<div class="jumbotron">
+  <h1>Proyecto Drools</h1>
+</div>
+
+
+
+    <button type="button" ng-click="listado()">GET Materias</button>
+  <p>
+   <h4>{{materias}}</h4></p>
+</div>
+<hr>
+<div>
+  <p>Nombre:
+  <input type="text" name="nombre" ng-model="nombre"></p>
+  <p>Clave:
+  <input type="text" name="clave" ng-model="clave"></p>
+  <button type="button" ng-click="insertarAsignaturaAlumno()">Insertar</button>{{resultadoInsercion}}
+</div>
