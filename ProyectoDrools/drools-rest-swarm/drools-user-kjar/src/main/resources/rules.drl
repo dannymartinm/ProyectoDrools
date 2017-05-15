@@ -1,97 +1,12 @@
 package org.drools.workshop;
 import org.drools.workshop.model.*;
 
-    
-    
-declare Recomendacion
-    ejercicio: Ejercicio @key
-end
-//declare any global variables here
-
 rule "Recomendacion"
     when
-        $ej: Ejercicio()
-    then
-        insert(new Recomendacion($ej);
-end
-
-rule "Recomendacion por intentos"
-
-    when
-        //conditions
         $a: Alumno()
         $ej: Ejercicio()
-        $ae: AlumnoEjercicio (intento > 2, matricula == $a.matricula, id_ejercicio == $e.id_ejercicio)
-        $ej2: Ejercicio(id_ejercicio == $ae.id_ejercicio, tema == $ej.tema, dificultad < $ej.dificultad)
     then
-        //actions
-        insert(new Recomendacion($ej2));
+        System.out.println("RULE");
+        insert(new Recomendacion($a.getNombre(), $a.getMatricula()));
+        insert(new Recomendacion($ej.getNombre(), $ej.getDescripcion()));
 end
-
-rule "Recomendacion por estado y calif mayor 85"
-    when
-        $a : Alumno()
-        $ej : Ejercicio()
-        $ae: AlumnoEjercicio (estado == 2, calificacion >85, matricula == $a.matricula, id_ejercicio == $e.id_ejercicio)
-        $ej2: Ejercicio(id_ejercicio == $ae.id_ejercicio, tema == $ej.tema, dificultad >= $ej.dificultad)
-    then
-        insert(new Recomendacion($ej2));
-end
-
-rule "Recomendacion por estado y calif menor igual 85 y mayor o igual que 70"
-    when
-        $a : Alumno()
-        $ej : Ejercicio()
-        $ae: AlumnoEjercicio (estado == 2, calificacion <=85 && calificacion >= 70, matricula == $a.matricula, id_ejercicio == $e.id_ejercicio)
-        $ej2: Ejercicio(id_ejercicio == $ae.id_ejercicio, tema == $ej.tema, dificultad == $ej.dificultad)
-    then
-        insert(new Recomendacion($ej2));
-end
-
-rule "Recomendacion por estado y calif menor que 70"
-    when
-        $a : Alumno()
-        $ej : Ejercicio()
-        $ae: AlumnoEjercicio (estado == 2, calificacion <70, matricula == $a.matricula, id_ejercicio == $e.id_ejercicio)
-        $ej2: Ejercicio(id_ejercicio == $ae.id_ejercicio, tema == $ej.tema, dificultad <= $ej.dificultad)
-    then
-        insert(new Recomendacion($ej2));
-end
-
-rule "Recomendacion por promedio menor a 85"
-    when
-        //conditions
-        $a: Alumno()
-        $as: Asignatura()
-        $aa: AlumnoAsignatura(promedio < 85, matricula == $a.matricula, nombreAsignatura == $as.nombreAsignatura )
-        $ej2: Ejercicio(dificultad <= 4)
-    then
-        //actions
-    insert(new Recomendacion($ej2));
-end
-
-rule "Recomendacion por promedio mayor o igual a 85"
-    when
-        //conditions
-        $a: Alumno()
-        $as: Asignatura()
-        $aa: AlumnoAsignatura(promedio >= 85, matricula == $a.matricula, nombreAsignatura == $as.nombreAsignatura )
-        $ej2: Ejercicio(dificultad == 5)
-    then
-        //actions
-    insert(new Recomendacion($ej2));
-end
-rule " recomendacion predecesor"
-    when
-    $a : Alumno()
-    $as : Asignatura()//predecesora
-    $as2 : Asignatura() //actual
-    $alas : AlumnoAsignatura(nombreAsignatura == $as2.nombreAsignatura, $a.matricula == matricula) 
-    $ej : Ejercicio()
-    $ase : AsignaturaEjercicio( id_ejercicio == $ej.id_ejercicio , nombreAsignatura == $alas.nombreAsignatura, predecesor == $as.nombreAsignatura, $alas.promedio <= 70)
-    $ej2 : Ejercicio(id_ejercicio == $ase.id_ejercicio, dificultad >= 0)
-    then
-    insert(new Recomendacion($ej2));
-end
-
-    

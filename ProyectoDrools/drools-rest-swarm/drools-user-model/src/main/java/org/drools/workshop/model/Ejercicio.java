@@ -17,6 +17,7 @@ public class Ejercicio {
 	public String descripcion;
 	private String id_ejercicio;
 	public int dificultad;
+	public String tema;
 	
 	public Ejercicio() {
 	}
@@ -53,11 +54,19 @@ public class Ejercicio {
 		this.dificultad = dificultad;
 	}
 
-	public Ejercicio(String nombre, String descripcion, String id_ejercicio, int dificultad) {
+	public String getTema() {
+		return tema;
+	}
+
+	public void setTema(String tema) {
+		this.tema = tema;
+	}
+	public Ejercicio(String nombre, String descripcion, String id_ejercicio, int dificultad, String tema) {
 		this.nombre = nombre;
 		this.descripcion = descripcion;
 		this.id_ejercicio = id_ejercicio;
 		this.dificultad = dificultad;
+		this.tema = tema;
 	}
 	
 	@Override

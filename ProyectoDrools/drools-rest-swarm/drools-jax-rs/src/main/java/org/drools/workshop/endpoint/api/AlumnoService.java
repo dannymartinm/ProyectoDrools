@@ -49,6 +49,11 @@ public interface AlumnoService{
     @Path("/alumnoejercicios")
     public List<AlumnoEjercicio> getAlumnoEjercicios();
 
+    @GET
+    @Produces("application/json")
+    @Path("recomendaciones")
+    public List<Recomendacion> getRecomendaciones();
+
 
    
 }

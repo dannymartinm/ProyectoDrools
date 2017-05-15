@@ -93,6 +93,16 @@ public class AlumnoServiceImpl implements AlumnoService {
     }
 
     
+     @Override
+    public List<Recomendacion> getRecomendaciones() {
+        List<Recomendacion> recomendaciones = new ArrayList<Recomendacion>();
+        for (Object o : kSession.getObjects()) {
+            if (o instanceof Recomendacion) {
+                recomendaciones.add((Recomendacion) o);
+            }
+        } System.out.println("----------------Recomendacion-----"+ recomendaciones);
+        return recomendaciones;
+    }
 
   
 

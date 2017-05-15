@@ -33,8 +33,9 @@ public class Recomendacion {
         return "Recomendacion{" + "ejercicio=" + ejercicio + "}";
     }
 
-   /* public Ejercicio(String ejercicio) {
+    public Recomendacion(String ejercicio, String alumno) {
 	this.ejercicio = ejercicio;
-    }*/
+    this.alumno = alumno;
+    }
     
 }
