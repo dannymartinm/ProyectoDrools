@@ -19,5 +19,5 @@ rule "Recomendacion por promedio mayor o igual a 85"
         $ej2: Ejercicio(dificultad<=1)
     then
 
-        insert(new Recomendacion($ej2.getNombre(), $ej2.getDescripcion()));
+        insert(new Recomendacion($ej2.getNombre(), $as.getNombre(), $ej2.getDificultad()));
 end
