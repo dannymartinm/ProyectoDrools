@@ -10,6 +10,8 @@
 angular.module('angularEjApp')
   .controller('AsignaturasCtrl', ['$http', '$scope',function ($http, $scope, $log) {
 
+  $scope.isDisabled = true;
+
    $http.get('http://localhost:8080/api/asignaturas')
         .then(function(response){
           var listado = response.data;
@@ -23,9 +25,12 @@ angular.module('angularEjApp')
           var res = response.data[0].matricula;
           console.log(response.data[0].matricula);
           //$log.debug("matricula"+res.nombre);
+
+          var promedio = Math.floor((Math.random() * 100) + 1);
           var materiaInsertar = {
-  			"nombreAsignatura": nombre,
-  			"matricula": res
+  			"clave": nombre,
+  			"matricula": res,
+        "promedio": promedio
   		}
   		console.log(nombre);
 
@@ -35,7 +40,9 @@ angular.module('angularEjApp')
   			$scope.resultadoInsercion =  respuesta;
   		});
         });
-        //var res = '\"'+matricula+'\"'
-  		
+   //   $scope.isDisabled = false;
+      		
   	}
+
+   
   }]);

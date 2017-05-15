@@ -1,15 +1,21 @@
 package org.drools.workshop;
 import org.drools.workshop.model.*;
 
-/* rule "Recomendacion"
+rule "Cargar Datos"
     when
-        $a: Alumno()
-        $ej: Ejercicio()
     then
         System.out.println("RULE");
-        insert(new Recomendacion($a.getNombre(), $a.getMatricula()));
-        insert(new Recomendacion($ej.getNombre(), $ej.getDescripcion()));
-end */
+        insert(new Asignatura("Mate I", "ITC","Español", "MA1015"));
+        insert(new Asignatura("Mate II", "ITC","Español", "MA1017"));
+        insert(new Asignatura("Física I", "ITC","Español", "F1002"));
+        insert(new Asignatura("Electricidad y Magnetismo", "ITC","Español", "F1005"));
+        insert(new Asignatura("Diseño Interactivo", "ITC","Español", "TC1015"));
+        insert(new Asignatura("Fundamentos Progra", "ITC","Español", "TC1014"));
+        insert(new Asignatura("POO", "ITC","Español", "TC2016"));
+        insert(new Asignatura("Estructura de Datos", "ITC","Español", "TC1018"));
+        insert(new Asignatura("Bases de Datos I", "ITC","Español", "TC1020"));
+        insert(new Asignatura("Bases de Datos II", "ITC","Español", "TC3041"));
+end 
 
 rule "Recomendacion por promedio mayor o igual a 85"
     when
@@ -74,10 +80,10 @@ rule " Recomendacion predecesor"
         $a : Alumno()
         $as : Asignatura()//predecesora
         $as2 : Asignatura() //actual
-        $alas : AlumnoAsignatura(clave == $as2.nombre && $a.matricula == matricula) 
+        $alas : AlumnoAsignatura(clave == $as2.clave && $a.matricula == matricula) 
         $ej : Ejercicio()
-        $ase : AsignaturaEjercicio( id_ejercicio == $ej.id_ejercicio && clave == $alas.clave && predecesor == $as.clave, $alas.promedio <= 70)
-        $ej2 : Ejercicio(id_ejercicio != $ase.id_ejercicio, dificultad >= 0)
+        $ase : AsignaturaEjercicio(id_ejercicio == $ej.id_ejercicio && clave == $alas.clave && predecesor == $as.clave, $alas.promedio <= 70)
+        $ej2 : Ejercicio(id_ejercicio != $ase.id_ejercicio && dificultad >= 1)
         
     then
         insert(new Recomendacion($ej2.getNombre(), $as.getNombre(), $ej2.getDificultad()));

@@ -20,8 +20,9 @@
 	    <td>{{ a.nombre }}</td>
 	    <td>{{ a.carrera}}</td>
 	    <td>{{ a.idioma}}</td>
-	    <td><button type="button" ng-click="insertarAsignaturaAlumno(a.nombre)">Agregar</button>{{resultadoInsercion}}</td>
+	    <td><button  type="button" ng-show="isDisabled" ng-click="insertarAsignaturaAlumno(a.nombre)">Agregar</
       </tr>
     </tbody>
   </table>
+  button>{{resultadoInsercion}}</td>
 </div>
