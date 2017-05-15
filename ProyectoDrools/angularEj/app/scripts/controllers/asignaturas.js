@@ -26,7 +26,7 @@ angular.module('angularEjApp')
           console.log(response.data[0].matricula);
           //$log.debug("matricula"+res.nombre);
 
-          var promedio = Math.floor((Math.random() * 100) + 1);
+          var promedio = Math.floor((Math.random() * 50) + 50);
           var materiaInsertar = {
   			"clave": nombre,
   			"matricula": res,
