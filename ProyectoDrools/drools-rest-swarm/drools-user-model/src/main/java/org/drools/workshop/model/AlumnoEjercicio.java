@@ -19,7 +19,7 @@ public class AlumnoEjercicio {
 		return this.matricula;
 	}
 	
-	public void setNombreEjercicio(String id_ejercicio){
+	public void setNombreEjercicio(String nombreEjercicio){
 		this.nombreEjercicio = nombreEjercicio;
 	}
 	
