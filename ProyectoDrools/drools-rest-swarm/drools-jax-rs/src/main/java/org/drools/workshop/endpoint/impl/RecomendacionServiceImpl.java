@@ -34,7 +34,7 @@ public class RecomendacionServiceImpl implements RecomendacionService {
     }
     
     @Override
-    public List<Recomendacion> getRecomendacioo() {
+    public List<Recomendacion> getRecomendacion() {
         List<Recomendacion> recomendaciones = new ArrayList<Recomendacion>();
         for (Object o : kSession.getObjects()) {
             if (o instanceof Recomendacion) {
