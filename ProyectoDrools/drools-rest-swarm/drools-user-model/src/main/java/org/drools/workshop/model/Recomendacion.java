@@ -7,6 +7,7 @@ import javax.xml.bind.annotation.XmlRootElement;
 public class Recomendacion {
     
     private String ejercicio;
+    private Alumno alumno;
 
     public Recomendacion() {
     }
@@ -15,8 +16,16 @@ public class Recomendacion {
         return ejercicio;
     }
 
+    public Alumno getAlumno() {
+        return alumno;
+    }
+
     public void setEjercicio(String ejercicio) {
         this.ejercicio = ejercicio;
+    }
+
+    public void setAlumno(Alumnno alumno) {
+        this.alumno = alumno;
     }
    
     @Override
