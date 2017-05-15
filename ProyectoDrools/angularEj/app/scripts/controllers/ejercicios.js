@@ -23,16 +23,13 @@ angular.module('angularEjApp')
           var res = response.data[0].matricula;
           console.log(response.data[0].matricula);
           //$log.debug("matricula"+res.nombre);
-          var materiaInsertar = {
-  			"id_ejercicio": id_ejercicio,
-  			"nombre": nombre,
-        "descripcion": descripcion,
-        "tema": tema,
-        "dificultad": dificultad
+          var ejercicioInsertar = {
+        "nombreEjercicio": nombre,
+  			"matricula": matricula
   		}
   		console.log(nombre);
 
-  		$http.post('http://localhost:8080/api/alumnos/insertaAlumnoAsignatura', materiaInsertar)
+  		$http.post('http://localhost:8080/api/alumnos/insertaAlumnoEjercicio', ejercicioInsertar)
   		.then(function(response){
   			var respuesta = response.data;
   			$scope.resultadoInsercion =  respuesta;
