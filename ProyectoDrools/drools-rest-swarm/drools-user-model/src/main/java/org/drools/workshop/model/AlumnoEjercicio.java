@@ -5,7 +5,7 @@ import javax.xml.bind.annotation.XmlRootElement;
 @XmlRootElement
 
 public class AlumnoEjercicio {
-	private String nombreEjercicio;
+	private String id_ejercicio;
 	private String matricula;
 
 	public AlumnoEjercicio(){
@@ -19,22 +19,22 @@ public class AlumnoEjercicio {
 		return this.matricula;
 	}
 	
-	public void setNombreEjercicio(String nombreEjercicio){
-		this.nombreEjercicio = nombreEjercicio;
-	}
-	
-	public String getNombreEjercicio(){
-		return this.nombreEjercicio;
+	public String getId_ejercicio() {
+		return id_ejercicio;
 	}
 
-	public AlumnoEjercicio(String nombreEjercicio, String matricula) {
-	this.nombreEjercicio = nombreEjercicio;
+	public void setId_ejercicio(String id_ejercicio) {
+		this.id_ejercicio = id_ejercicio;
+	}
+
+	public AlumnoEjercicio(String id_ejercicio, String matricula) {
+	this.id_ejercicio = id_ejercicio;
 	this.matricula = matricula;
     }
 
     @Override
     public String toString() {
-        return "AlumnoEjercicio{" + "nombreEjercicio=" + nombreEjercicio + ", este ejerciccio fue tomado por el alumno con la matricula=" + matricula + "}";
+        return "AlumnoEjercicio{" + "id_ejercicio=" + id_ejercicio + ", este ejerciccio fue tomado por el alumno con la matricula=" + matricula + "}";
     }
 	
 }

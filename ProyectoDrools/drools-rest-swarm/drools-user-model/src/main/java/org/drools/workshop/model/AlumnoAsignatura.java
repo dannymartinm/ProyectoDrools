@@ -6,7 +6,7 @@ import javax.xml.bind.annotation.XmlRootElement;
 @XmlRootElement
 
 public class AlumnoAsignatura {
-	private String nombreAsignatura;
+	private String clave;
 	private String matricula;
 	public double promedio;
 
@@ -21,12 +21,12 @@ public class AlumnoAsignatura {
 		return this.matricula;
 	}
 	
-	public void setNombeAsignatura(String nombreAsignatura){
-		this.nombreAsignatura = nombreAsignatura;
+	public void setClave(String clave){
+		this.clave = clave;
 	}
 	
-	public String getNombreAsignatura(){
-		return this.nombreAsignatura;
+	public String getClave(){
+		return this.clave;
 	}
 
 	public void setPromedio(double promedio){
@@ -37,8 +37,8 @@ public class AlumnoAsignatura {
 		return this.promedio;
 	}
 
-	public AlumnoAsignatura(String nombreAsignatura, String matricula, double promedio) {
-	this.nombreAsignatura = nombreAsignatura;
+	public AlumnoAsignatura(String clave, String matricula, double promedio) {
+	this.clave = clave;
 	this.matricula = matricula;
 	this.promedio = promedio;
     }
@@ -46,7 +46,7 @@ public class AlumnoAsignatura {
 
 	@Override
     public String toString() {
-        return "AlumnoAsignatura{" + "nombreAsignatura=" + nombreAsignatura + "la lleva el alumno con la matricula=" + matricula + " con promedio "+ promedio +"}";
+        return "AlumnoAsignatura{" + "clave=" + clave + "la lleva el alumno con la matricula=" + matricula + " con promedio "+ promedio +"}";
     }
 
 
