@@ -7,7 +7,7 @@ import javax.xml.bind.annotation.XmlRootElement;
 public class Recomendacion {
     
     private String ejercicio;
-    private Alumno alumno;
+    private String alumno;
 
     public Recomendacion() {
     }
@@ -16,7 +16,7 @@ public class Recomendacion {
         return ejercicio;
     }
 
-    public Alumno getAlumno() {
+    public String getAlumno() {
         return alumno;
     }
 
@@ -24,7 +24,7 @@ public class Recomendacion {
         this.ejercicio = ejercicio;
     }
 
-    public void setAlumno(Alumnno alumno) {
+    public void setAlumno(String alumno) {
         this.alumno = alumno;
     }
    
