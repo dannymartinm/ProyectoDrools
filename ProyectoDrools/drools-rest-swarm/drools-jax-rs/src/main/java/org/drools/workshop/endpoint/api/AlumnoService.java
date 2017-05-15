@@ -36,5 +36,19 @@ public interface AlumnoService{
     public List<AlumnoAsignatura> getAlumnoAsignaturas();
 
 
+
+    @POST
+    @Consumes("application/json")
+    @Produces("application/json")
+    @Path("/insertaAlumnoEjercicio")
+    public AlumnoEjercicio insertaAlumnoEjercicio(@NotNull AlumnoEjercicio  alumnoEjercicio);
+    
+        
+    @GET
+    @Produces("application/json")
+    @Path("/alumnoejercicios")
+    public List<AlumnoEjercicio> getAlumnoEjercicios();
+
+
    
 }

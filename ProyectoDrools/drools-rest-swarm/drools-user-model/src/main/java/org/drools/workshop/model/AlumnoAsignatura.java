@@ -33,7 +33,7 @@ public class AlumnoAsignatura {
 		this.promedio = promedio;
 	}
 	
-	public String getPromedio(){
+	public double getPromedio(){
 		return this.promedio;
 	}
 
