@@ -7,35 +7,48 @@ import javax.xml.bind.annotation.XmlRootElement;
 public class Recomendacion {
     
     private String ejercicio;
-    private String alumno;
+    private String materia;
+    private int dificultad;
 
     public Recomendacion() {
     }
+
+    public String getMateria() {
+        return materia;
+    }
+
+    public void setMateria(String materia) {
+        this.materia = materia;
+    }
+
+    public int getDificultad() {
+        return dificultad;
+    }
+
+    public void setDificultad(int dificultad) {
+        this.dificultad = dificultad;
+    }
+
 
     public String getEjercicio() {
         return ejercicio;
     }
 
-    public String getAlumno() {
-        return alumno;
-    }
-
+  
     public void setEjercicio(String ejercicio) {
         this.ejercicio = ejercicio;
     }
 
-    public void setAlumno(String alumno) {
-        this.alumno = alumno;
-    }
    
     @Override
     public String toString() {
         return "Recomendacion{" + "ejercicio=" + ejercicio + "}";
     }
 
-    public Recomendacion(String ejercicio, String alumno) {
+    public Recomendacion(String ejercicio, String materia, int dificultad) {
 	this.ejercicio = ejercicio;
-    this.alumno = alumno;
+    this.materia = materia;
+    this.dificultad = dificultad;
     }
     
 }
