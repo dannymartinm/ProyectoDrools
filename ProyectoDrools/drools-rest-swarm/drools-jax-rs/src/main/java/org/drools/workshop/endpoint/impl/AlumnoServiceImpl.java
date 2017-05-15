@@ -92,6 +92,29 @@ public class AlumnoServiceImpl implements AlumnoService {
         return alumnoEjercicios;
     }
 
+    @Override
+    public AsignaturaEjercicio insertaAsignaturaEjercicio(AsignaturaEjercicio asignaturaEj) {
+        System.out.println(">> kSession: " + kSession);
+        printKieSessionAllFacts(kSession);
+        System.out.println(">> AsignaturaEjercicio: " + asignaturaEj);
+        kSession.insert(asignaturaEj);
+        int fired = kSession.fireAllRules();
+        System.out.println(">> Fired: " + fired);
+        return asignaturaEj;
+    }
+
+    
+    @Override
+    public List<AsignaturaEjercicio> getAsignaturaEjercicios() {
+        List<AsignaturaEjercicio> asignaturaEjercicios = new ArrayList<AsignaturaEjercicio>();
+        for (Object o : kSession.getObjects()) {
+            if (o instanceof AsignaturaEjercicio) {
+                asignaturaEjercicios.add((AsignaturaEjercicio) o);
+            }
+        }
+        return asignaturaEjercicios;
+    }
+
     
      @Override
     public List<Recomendacion> getRecomendaciones() {
