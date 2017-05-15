@@ -11,6 +11,7 @@
         <th>Materia</th>
         <th>Ejercicio</th>
         <th>Dificultad</th>
+        <th>Descripción</th>
       </tr>
     </thead>
     <tbody>
@@ -18,6 +19,7 @@
         <td>{{ a.materia}}</td>
 	    <td>{{ a.ejercicio }}</td>
 	    <td>{{ a.dificultad }}</td>
+      <td>{{ a.descripcion }}</td>
 	    <td><button type="button" ng-click="insertarAsignaturaAlumno(a.ejercicio)">Agregar</button>{{resultadoInsercion}}</td>
       </tr>
     </tbody>

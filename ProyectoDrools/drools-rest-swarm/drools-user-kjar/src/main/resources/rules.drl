@@ -25,7 +25,7 @@ rule "Recomendacion por promedio mayor o igual a 85"
         $ej2: Ejercicio(dificultad==5)
     then
 
-        insert(new Recomendacion($ej2.getNombre(), $aa.getClave(), $ej2.getDificultad()));
+        insert(new Recomendacion($ej2.getNombre(), $aa.getClave(), $ej2.getDificultad(),"Promedio>=85 en "+$as.getNombre()));
 end
 
 rule "Recomendacion por promedio menor a 85"
@@ -35,7 +35,7 @@ rule "Recomendacion por promedio menor a 85"
         $aa: AlumnoAsignatura(promedio < 85, matricula == $a.matricula, clave == $as.clave )
         $ej2: Ejercicio(dificultad <= 4)
     then
-        insert(new Recomendacion($ej2.getNombre(), $as.getClave(), $ej2.getDificultad()));
+        insert(new Recomendacion($ej2.getNombre(), $as.getClave(), $ej2.getDificultad(), "Promedio<85 en"+$as.getNombre()));
 end
 
 rule "Recomendacion por estado y calif menor que 70"
@@ -47,7 +47,7 @@ rule "Recomendacion por estado y calif menor que 70"
         $ae: AlumnoEjercicio (matricula == $a.matricula && id_ejercicio == $ej.id_ejercicio)
         $ej2: Ejercicio(id_ejercicio != $ae.id_ejercicio, tema == $ej.tema && dificultad <= $ej.dificultad)
     then
-        insert(new Recomendacion($ej2.getNombre(), $aa.getClave(), $ej2.getDificultad()));
+        insert(new Recomendacion($ej2.getNombre(), $aa.getClave(), $ej2.getDificultad(), "Estado completado y calif<70 en"+$as.getNombre()));
 end
 
 rule "Recomendacion por estado y calif mayor 85" 
@@ -59,11 +59,11 @@ rule "Recomendacion por estado y calif mayor 85"
         $ae: AlumnoEjercicio (matricula == $a.matricula && id_ejercicio == $ej.id_ejercicio)
         $ej2: Ejercicio(id_ejercicio != $ae.id_ejercicio, tema == $ej.tema && dificultad >= $ej.dificultad)
     then
-        insert(new Recomendacion($ej2.getNombre(), $aa.getClave(), $ej2.getDificultad()));
+        insert(new Recomendacion($ej2.getNombre(), $aa.getClave(), $ej2.getDificultad(), "Estado completado calif>85 en"+$as.getNombre()));
         
 end
 
-rule "Recomendacion por estado y calif menor igual 85 y mayor o igual que 70"//ESTAAAAAA WWE
+rule "Recomendacion por estado y calif menor igual 85 y mayor o igual que 70"
     when
         $a : Alumno()
         $as: Asignatura()        
@@ -72,7 +72,7 @@ rule "Recomendacion por estado y calif menor igual 85 y mayor o igual que 70"//E
         $ae: AlumnoEjercicio (matricula == $a.matricula && id_ejercicio == $ej.id_ejercicio)
         $ej2: Ejercicio(id_ejercicio != $ae.id_ejercicio, tema == $ej.tema && dificultad == $ej.dificultad)
     then
-        insert(new Recomendacion($ej2.getNombre(), $aa.getClave(), $ej2.getDificultad()));
+        insert(new Recomendacion($ej2.getNombre(), $aa.getClave(), $ej2.getDificultad(), "Estado completado y 70=<calif<=85 en"+$as.getNombre()));
 end
 
 rule " Recomendacion predecesor" 
@@ -86,6 +86,6 @@ rule " Recomendacion predecesor"
         $ej2 : Ejercicio(id_ejercicio != $ase.id_ejercicio && dificultad >= 1)
         
     then
-        insert(new Recomendacion($ej2.getNombre(), $as.getNombre(), $ej2.getDificultad()));
+        insert(new Recomendacion($ej2.getNombre(), $as.getNombre(), $ej2.getDificultad(), "Predecesor:"+$as.getNombre()+ "de "+$as2.getNombre()));
 end
 
