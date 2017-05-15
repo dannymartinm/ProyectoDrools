@@ -1,7 +1,7 @@
 package org.drools.workshop;
 import org.drools.workshop.model.*;
 
-rule "Recomendacion"
+/* rule "Recomendacion"
     when
         $a: Alumno()
         $ej: Ejercicio()
@@ -9,4 +9,15 @@ rule "Recomendacion"
         System.out.println("RULE");
         insert(new Recomendacion($a.getNombre(), $a.getMatricula()));
         insert(new Recomendacion($ej.getNombre(), $ej.getDescripcion()));
+end */
+
+rule "Recomendacion por promedio mayor o igual a 85"
+    when
+        $a: Alumno()
+        $as: Asignatura()
+        $aa: AlumnoAsignatura(promedio < 85, matricula == $a.matricula, nombreAsignatura == $as.clave )
+        $ej2: Ejercicio(dificultad<=1)
+    then
+
+        insert(new Recomendacion($ej2.getNombre(), $ej2.getDescripcion()));
 end
