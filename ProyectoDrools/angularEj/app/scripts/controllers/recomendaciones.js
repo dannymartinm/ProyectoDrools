@@ -8,7 +8,7 @@
  * Controller of the angularEjApp
  */
 angular.module('angularEjApp')
-  .controller('EjerciciosCtrl', ['$http', '$scope',function ($http, $scope, $log) {
+  .controller('RecomendacionesCtrl', ['$http', '$scope',function ($http, $scope, $log) {
 
    $http.get('http://localhost:8080/api/recomendaciones')
         .then(function(response){
@@ -17,26 +17,26 @@ angular.module('angularEjApp')
         });
 
 
-  	$scope.insertarAsignaturaAlumno = function(nombre){
-  		var matricula = $http.get('http://localhost:8080/api/alumnos')
+    $scope.insertarAsignaturaAlumno = function(nombre){
+      var matricula = $http.get('http://localhost:8080/api/alumnos')
         .then(function(response){
           var res = response.data[0].matricula;
           console.log(response.data[0].matricula);
           //$log.debug("matricula"+res.nombre);
           var materiaInsertar = {
-  			"materia": materia,
-  			"ejercicio": ejercicio,
+        "materia": materia,
+        "ejercicio": ejercicio,
         "dificultad": dificultad
-  		}
-  		console.log(nombre);
+      }
+      console.log(nombre);
 
-  		$http.post('http://localhost:8080/api/alumnos/insertaAlumnoAsignatura', materiaInsertar)
-  		.then(function(response){
-  			var respuesta = response.data;
-  			$scope.resultadoInsercion =  respuesta;
-  		});
+      $http.post('http://localhost:8080/api/alumnos/insertaAlumnoAsignatura', materiaInsertar)
+      .then(function(response){
+        var respuesta = response.data;
+        $scope.resultadoInsercion =  respuesta;
+      });
         });
         //var res = '\"'+matricula+'\"'
-  		
-  	}
+      
+    }
   }]);
