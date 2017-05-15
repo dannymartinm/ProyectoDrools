@@ -25,7 +25,7 @@ angular.module('angularEjApp')
           //$log.debug("matricula"+res.nombre);
           var ejercicioInsertar = {
         "nombreEjercicio": nombre,
-        "matricula": matricula
+        "matricula": res
       }
       console.log(nombre);
 
