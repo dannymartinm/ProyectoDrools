@@ -12,7 +12,7 @@ rule "Recomendacion"
     when
         $ej: Ejercicio()
     then
-        insert(new Recomendacion($ej));
+        insert(new Recomendacion($ej);
 end
 
 rule "Recomendacion por intentos"
