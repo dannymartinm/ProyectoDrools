@@ -8,7 +8,7 @@
  * Controller of the angularEjApp
  */
 angular.module('angularEjApp')
-  .controller('MainCtrl', function ($scope, $http, $window) {
+  .controller('MainCtrl', ['$scope', '$http',function ($scope, $http, $window) {
 
 
     $scope.listado = function(){
@@ -31,4 +31,4 @@ angular.module('angularEjApp')
   		});
   	}
 
-  });
+  }]);

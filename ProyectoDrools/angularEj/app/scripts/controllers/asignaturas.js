@@ -25,14 +25,15 @@ angular.module('angularEjApp')
           //$log.debug("matricula"+res.nombre);
         });
   		var materiaInsertar = {
-  			"nombre": nombre,
+  			"nombreAsignatura": nombre,
   			"matricula": matricula
   		}
   		console.log(nombre);
-  	/*	$http.post('http://localhost:8080/alumnos', alumnoInsertar)
+
+  		$http.post('http://localhost:8080/alumnos/insertaAlumnoAsignatura', materiaInsertar)
   		.then(function(response){
   			var respuesta = response.data;
   			$scope.resultadoInsercion =  respuesta;
-  		});*/
+  		});
   	}
   }]);
