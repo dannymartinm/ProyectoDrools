@@ -1,0 +1,29 @@
+<div ng-controller="AsignaturasCtrl">
+<div class="jumbotron">
+  <h1>Proyecto Drools</h1>
+</div>
+
+   
+<div>
+	 <table class="table table-condensed">
+    <thead>
+      <tr>
+        <th>Id ejercicio</th>
+        <th>Nombre</th>
+        <th>Descripción</th>
+        <th>Tema</th>
+        <th>Dificultad</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr ng-repeat="a in asignaturas">
+        <td>{{ a.id_ejercicio}}</td>
+	    <td>{{ a.nombre }}</td>
+	    <td>{{ a.descripcion }}</td>
+	    <td>{{ a.tema }}</td>
+      <td>{{ a.dificultad }}</td>
+	    <td><button type="button" ng-click="insertarAsignaturaAlumno(a.nombre)">Agregar</button>{{resultadoInsercion}}</td>
+      </tr>
+    </tbody>
+  </table>
+</div>
