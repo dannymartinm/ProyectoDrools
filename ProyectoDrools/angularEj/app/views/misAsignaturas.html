@@ -1,4 +1,4 @@
-<div ng-controller="AsignaturasCtrl">
+<div ng-controller="MisAsignaturasCtrl">
 <div class="jumbotron">
   <h1>Proyecto Drools</h1>
 </div>
@@ -16,7 +16,6 @@
       <tr ng-repeat="a in ejercicios">
         <td>{{ a.nombre }}</td>
 	     <td>{{ a.promedio }}</td>
-	    <td><button type="button" ng-click="insertarAsignaturaAlumno(a.nombre)">Agregar</button>{{resultadoInsercion}}</td>
       </tr>
     </tbody>
   </table>
