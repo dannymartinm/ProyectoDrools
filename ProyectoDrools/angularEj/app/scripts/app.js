@@ -39,6 +39,11 @@ angular
         controller: 'EjerciciosCtrl',
         controllerAs: 'ejercicios'
       })
+      .when('/recomendaciones', {
+        templateUrl: 'views/recomendaciones.html',
+        controller: 'RecomendacionesCtrl',
+        controllerAs: 'recomendaciones'
+      })
       .otherwise({
         redirectTo: '/'
       });
