@@ -74,7 +74,7 @@ public class AlumnoServiceImpl implements AlumnoService {
         System.out.println(">> kSession: " + kSession);
         printKieSessionAllFacts(kSession);
         System.out.println(">> AlumnoEjercicio: " + alumnoEj);
-        kSession.insert(alumnoA);
+        kSession.insert(alumnoEj);
         int fired = kSession.fireAllRules();
         System.out.println(">> Fired: " + fired);
         return alumnoEj;
@@ -82,7 +82,7 @@ public class AlumnoServiceImpl implements AlumnoService {
 
     
     @Override
-    public List<AlumnoEjercicio> getAlumnoEjercicio() {
+    public List<AlumnoEjercicio> getAlumnoEjercicios() {
         List<AlumnoEjercicio> alumnoEjercicios = new ArrayList<AlumnoEjercicio>();
         for (Object o : kSession.getObjects()) {
             if (o instanceof AlumnoEjercicio) {
