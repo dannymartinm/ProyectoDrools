@@ -104,6 +104,49 @@ public class AlumnoServiceImpl implements AlumnoService {
         return recomendaciones;
     }
 
+    public Asignatura insertaAsignatura(Asignatura asignatura) {
+        System.out.println(">> kSession: " + kSession);
+        printKieSessionAllFacts(kSession);
+        System.out.println(">> Asignatura: " + asignatura);
+        kSession.insert(asignatura);
+        int fired = kSession.fireAllRules();
+        System.out.println(">> Fired: " + fired);
+        return asignatura;
+    }
+    
+    @Override
+    public List<Asignatura> getAsignatura() {
+        List<Asignatura> asignaturas = new ArrayList<Asignatura>();
+        for (Object o : kSession.getObjects()) {
+            if (o instanceof Asignatura) {
+                asignaturas.add((Asignatura) o);
+            }
+        }
+        return asignaturas;
+    }
+
+    @Override
+    public Ejercicio insertaEjercicio(Ejercicio ejercicio) {
+        System.out.println(">> kSession: " + kSession);
+        printKieSessionAllFacts(kSession);
+        System.out.println(">> Ejercicio: " + ejercicio);
+        kSession.insert(ejercicio);
+        int fired = kSession.fireAllRules();
+        System.out.println(">> Fired: " + fired);
+        return ejercicio;
+    }
+
+    
+    @Override
+    public List<Ejercicio> getEjercicios() {
+        List<Ejercicio> ejercicios = new ArrayList<Ejercicio>();
+        for (Object o : kSession.getObjects()) {
+            if (o instanceof Ejercicio) {
+                ejercicios.add((Ejercicio) o);
+            }
+        }
+        return ejercicios;
+    }
   
 
     private void printKieSessionAllFacts(KieSession kSession) {
