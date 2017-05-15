@@ -15,64 +15,121 @@ rule "Cargar Datos"
         insert(new Asignatura("Estructura de Datos", "ITC","Español", "TC1018"));
         insert(new Asignatura("Bases de Datos I", "ITC","Español", "TC1020"));
         insert(new Asignatura("Bases de Datos II", "ITC","Español", "TC3041"));
+
+
+        insert(new Ejercicio("EjMate1001", "Ejercicio Mate 1", "EJ001", 3,"Derivadas"));
+        insert(new Ejercicio("EjMate1002", "Ejercicio Mate 1", "EJ002", 2,"Limites"));
+        insert(new Ejercicio("EjMate2001", "Ejercicio Mate 2", "EJ003", 3,"Sumatorias"));
+        insert(new Ejercicio("EjMate2002", "Ejercicio Mate 2", "EJ004", 4,"Integrales"));
+        insert(new Ejercicio("EjFisica1001", "Ejercicio Fisica 1", "EJ005", 1,"Introduccion a la Mecanica Clasica"));
+        insert(new Ejercicio("EjFisica1002", "Ejercicio Fisica 1", "EJ006", 2,"caida Libre"));
+        insert(new Ejercicio("EjEyM001", "Ejercicio Fisica 3", "EJ007", 4,"Gauss"));
+        insert(new Ejercicio("EjEyM002", "Ejercicio Fisica 3", "EJ008", 1,"Cargas"));
+        insert(new Ejercicio("EjDisInt001", "Ejercicio Diseño Interactivo ", "EJ009", 1,"HTML"));
+        insert(new Ejercicio("EjDisInt002", "Ejercicio Diseño Interactivo", "EJ010", 3,"Usabilidad"));
+        insert(new Ejercicio("EjFundProgra001", "Ejercicio Fundamentos ", "EJ011", 3,"Ciclos"));
+        insert(new Ejercicio("EjFundProgra002", "Ejercicio Fundamentos ", "EJ012", 5,"Funciones"));
+        insert(new Ejercicio("EjPOO001", "Ejercicio POO", "EJ013", 1,"Clases"));
+        insert(new Ejercicio("EjPOO002", "Ejercicio POO", "EJ014", 2,"Interfaces"));
+        insert(new Ejercicio("EjEDD001", "Ejercicio EDD ", "EJ015", 4,"Algoritmos de Ordenamiento"));
+        insert(new Ejercicio("EjEDD002", "Ejercicio EDD ", "EJ016", 5,"Grafos y Arboles"));
+        insert(new Ejercicio("EjBDD1001", "Ejercicio BDD 1", "EJ017", 1,"Comandos SQL"));
+        insert(new Ejercicio("EjBDD1002", "Ejercicio BDD 1", "EJ018", 3,"Joins"));
+        insert(new Ejercicio("EjBDD2001", "Ejercicio BDD 2", "EJ019", 3,"Triggers"));
+        insert(new Ejercicio("EjBDD2002", "Ejercicio BDD 2", "EJ020", 5,"Data Mining"));
+
+        insert(new AsignaturaEjercicio("MA1015","EJ001","N/A"));
+        insert(new AsignaturaEjercicio("MA015","EJ002","N/A"));
+        insert(new AsignaturaEjercicio("MA1017","EJ003","MA1015"));
+        insert(new AsignaturaEjercicio("MA1017","EJ004","MA1015"));
+
+        insert(new AsignaturaEjercicio("F1002","EJ005","N/A"));
+        insert(new AsignaturaEjercicio("F1002","EJ006","N/A"));
+        insert(new AsignaturaEjercicio("F1005","EJ007","F1002"));
+        insert(new AsignaturaEjercicio("F1005","EJ008","F1002"));
+
+        insert(new AsignaturaEjercicio("TC1014","EJ011","N/A"));
+        insert(new AsignaturaEjercicio("TC1014","EJ012","N/A"));
+        insert(new AsignaturaEjercicio("TC1015","EJ009","TC1014"));
+        insert(new AsignaturaEjercicio("TC1015","EJ010","TC1014"));
+        insert(new AsignaturaEjercicio("TC2016","EJ013","TC1014"));
+        insert(new AsignaturaEjercicio("TC2016","EJ014","TC1014"));
+        insert(new AsignaturaEjercicio("TC1018","EJ015","TC2016"));
+        insert(new AsignaturaEjercicio("TC1018","EJ016","TC2016"));
+
+        insert(new AsignaturaEjercicio("TC1020","EJ017","N/A"));
+        insert(new AsignaturaEjercicio("TC1020","EJ018","N/A"));
+        insert(new AsignaturaEjercicio("TC3041","EJ019","TC1020"));
+        insert(new AsignaturaEjercicio("TC3041","EJ020","TC1020"));
 end 
 
 rule "Recomendacion por promedio mayor o igual a 85"
     when
-        $a: Alumno()
+        $a : Alumno()
         $as: Asignatura()
-        $aa: AlumnoAsignatura(promedio >= 85, matricula == $a.matricula, clave == $as.clave )
-        $ej2: Ejercicio(dificultad==5)
+        $aa: AlumnoAsignatura(promedio >= 85, matricula == $a.matricula && clave == $as.clave)
+        $ej : Ejercicio()
+        $ase : AsignaturaEjercicio(id_ejercicio == $ej.id_ejercicio && clave == $aa.clave)
+        $ej2 : Ejercicio(id_ejercicio = $ase.id_ejercicio && dificultad >= 4)
+        $as2: Asignatura(clave == $ase.clave)
     then
-
-        insert(new Recomendacion($ej2.getNombre(), $aa.getClave(), $ej2.getDificultad(),"Promedio>=85 en "+$as.getNombre()));
+        insert(new Recomendacion($ej2.getNombre(), $ase.getClave(), $ej2.getDificultad(), "Promedio>=85 en "+ $as2.getNombre()));
 end
 
 rule "Recomendacion por promedio menor a 85"
     when
-        $a: Alumno()
+        $a : Alumno()
         $as: Asignatura()
-        $aa: AlumnoAsignatura(promedio < 85, matricula == $a.matricula, clave == $as.clave )
-        $ej2: Ejercicio(dificultad <= 4)
+        $aa: AlumnoAsignatura(promedio < 85, matricula == $a.matricula && clave == $as.clave)
+        $ej : Ejercicio()
+        $ase : AsignaturaEjercicio(id_ejercicio == $ej.id_ejercicio && clave == $aa.clave)
+        $ej2 : Ejercicio(id_ejercicio = $ase.id_ejercicio && dificultad <= 3)
+        $as2: Asignatura(clave == $ase.clave)
     then
-        insert(new Recomendacion($ej2.getNombre(), $as.getClave(), $ej2.getDificultad(), "Promedio<85 en"+$as.getNombre()));
+        insert(new Recomendacion($ej2.getNombre(), $ase.getClave(), $ej2.getDificultad(), "Promedio<85 en "+ $as2.getNombre()));
 end
 
 rule "Recomendacion por estado y calif menor que 70"
     when
         $a : Alumno()
         $as: Asignatura()
-        $aa: AlumnoAsignatura(promedio < 70, matricula == $a.matricula, clave == $as.clave)
-        $ej : Ejercicio(estado == 2)
-        $ae: AlumnoEjercicio (matricula == $a.matricula && id_ejercicio == $ej.id_ejercicio)
+        $aa: AlumnoAsignatura(promedio < 70, matricula == $a.matricula && clave == $as.clave)
+        $ej : Ejercicio()
+        $ae: AlumnoEjercicio (matricula == $a.matricula && id_ejercicio == $ej.id_ejercicio && estado == 2)
         $ej2: Ejercicio(id_ejercicio != $ae.id_ejercicio, tema == $ej.tema && dificultad <= $ej.dificultad)
+        $ae2: AlumnoEjercicio (matricula == $ae.matricula && id_ejercicio == $ej2.id_ejercicio)
+        $ej3: Ejercicio(id_ejercicio == $ae2.id_ejercicio)
     then
-        insert(new Recomendacion($ej2.getNombre(), $aa.getClave(), $ej2.getDificultad(), "Estado completado y calif<70 en"+$as.getNombre()));
+        insert(new Recomendacion($ej3.getNombre(), $aa.getClave(), $ej2.getDificultad(), "Estado completado y calif<70 en"+$as.getNombre()));
 end
 
 rule "Recomendacion por estado y calif mayor 85" 
     when
         $a : Alumno()
         $as: Asignatura()
-        $aa: AlumnoAsignatura(promedio > 85, matricula == $a.matricula, clave == $as.clave)
-        $ej : Ejercicio(estado == 2)
-        $ae: AlumnoEjercicio (matricula == $a.matricula && id_ejercicio == $ej.id_ejercicio)
-        $ej2: Ejercicio(id_ejercicio != $ae.id_ejercicio, tema == $ej.tema && dificultad >= $ej.dificultad)
+        $aa: AlumnoAsignatura(promedio > 85, matricula == $a.matricula && clave == $as.clave)
+        $ej : Ejercicio()
+        $ae: AlumnoEjercicio (matricula == $a.matricula && id_ejercicio == $ej.id_ejercicio && estado == 2)
+        $ej2: Ejercicio(id_ejercicio != $ae.id_ejercicio, tema == $ej.tema && dificultad <= $ej.dificultad)
+        $ae2: AlumnoEjercicio (matricula == $ae.matricula && id_ejercicio == $ej2.id_ejercicio)
+        $ej3: Ejercicio(id_ejercicio == $ae2.id_ejercicio)
     then
-        insert(new Recomendacion($ej2.getNombre(), $aa.getClave(), $ej2.getDificultad(), "Estado completado calif>85 en"+$as.getNombre()));
+        insert(new Recomendacion($ej3.getNombre(), $aa.getClave(), $ej2.getDificultad(), "Estado completado calif>85 en"+$as.getNombre()));
         
 end
 
 rule "Recomendacion por estado y calif menor igual 85 y mayor o igual que 70"
     when
         $a : Alumno()
-        $as: Asignatura()        
-        $aa: AlumnoAsignatura(promedio >= 70 && promedio <= 85, matricula == $a.matricula, clave == $as.clave)
-        $ej : Ejercicio(estado == 2)        
-        $ae: AlumnoEjercicio (matricula == $a.matricula && id_ejercicio == $ej.id_ejercicio)
-        $ej2: Ejercicio(id_ejercicio != $ae.id_ejercicio, tema == $ej.tema && dificultad == $ej.dificultad)
+        $as: Asignatura()
+        $aa: AlumnoAsignatura(promedio >= 70 && promedio <= 85 && matricula == $a.matricula && clave == $as.clave)
+        $ej : Ejercicio()
+        $ae: AlumnoEjercicio (matricula == $a.matricula && id_ejercicio == $ej.id_ejercicio && estado == 2)
+        $ej2: Ejercicio(id_ejercicio != $ae.id_ejercicio, tema == $ej.tema && dificultad <= $ej.dificultad)
+        $ae2: AlumnoEjercicio (matricula == $ae.matricula && id_ejercicio == $ej2.id_ejercicio)
+        $ej3: Ejercicio(id_ejercicio == $ae2.id_ejercicio)
     then
-        insert(new Recomendacion($ej2.getNombre(), $aa.getClave(), $ej2.getDificultad(), "Estado completado y 70=<calif<=85 en"+$as.getNombre()));
+        insert(new Recomendacion($ej3.getNombre(), $aa.getClave(), $ej2.getDificultad(), "Estado completado y 70=<calif<=85 en"+$as.getNombre()));
 end
 
 rule " Recomendacion predecesor" 
@@ -80,12 +137,15 @@ rule " Recomendacion predecesor"
         $a : Alumno()
         $as : Asignatura()//predecesora
         $as2 : Asignatura() //actual
-        $alas : AlumnoAsignatura(clave == $as2.clave && $a.matricula == matricula) 
+        $alas : AlumnoAsignatura(clave == $as2.clave && $a.matricula == matricula && promedio <= 70) 
         $ej : Ejercicio()
-        $ase : AsignaturaEjercicio(id_ejercicio == $ej.id_ejercicio && clave == $alas.clave && predecesor == $as.clave, $alas.promedio <= 70)
+        $ase : AsignaturaEjercicio(id_ejercicio == $ej.id_ejercicio && clave == $alas.clave && predecesor == $as.clave)
         $ej2 : Ejercicio(id_ejercicio != $ase.id_ejercicio && dificultad >= 1)
-        
+        $ase2 : AsignaturaEjercicio(id_ejercicio == $ej2.id_ejercicio && clave == $ase.clave && predecesor == $ase.predecesor)
+        $ej3 : Ejercicio(id_ejercicio == $ase2.id_ejercicio)
+        $as3 : Asignatura(clave == $ase2.predecesor)
+        $as4 : Asignatura(clave == $ase2.clave)
     then
-        insert(new Recomendacion($ej2.getNombre(), $as.getNombre(), $ej2.getDificultad(), "Predecesor:"+$as.getNombre()+ "de "+$as2.getNombre()));
+        insert(new Recomendacion($ej3.getNombre(), $ase2.getClave(), $ej3.getDificultad(), "Predecesor: "+$as3.getNombre()+ " de "+$as4.getNombre()));
 end
 

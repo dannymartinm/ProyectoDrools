@@ -7,6 +7,7 @@ import javax.xml.bind.annotation.XmlRootElement;
 public class AlumnoEjercicio {
 	private String id_ejercicio;
 	private String matricula;
+	public int estado;
 
 	public AlumnoEjercicio(){
 	}
@@ -27,14 +28,23 @@ public class AlumnoEjercicio {
 		this.id_ejercicio = id_ejercicio;
 	}
 
-	public AlumnoEjercicio(String id_ejercicio, String matricula) {
-	this.id_ejercicio = id_ejercicio;
-	this.matricula = matricula;
+	public AlumnoEjercicio(String id_ejercicio, String matricula, int estado) {
+		this.id_ejercicio = id_ejercicio;
+		this.matricula = matricula;
+		this.estado = estado;
     }
+	
+	public int getEstado() {
+		return estado;
+	}
+
+	public void setEstado(int estado) {
+		this.estado = estado;
+	}
 
     @Override
     public String toString() {
-        return "AlumnoEjercicio{" + "id_ejercicio=" + id_ejercicio + ", este ejerciccio fue tomado por el alumno con la matricula=" + matricula + "}";
+        return "AlumnoEjercicio{" + "id_ejercicio=" + id_ejercicio + ", matricula=" + matricula + ", estado=" + estado +"}";
     }
 	
 }

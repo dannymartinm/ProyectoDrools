@@ -18,7 +18,6 @@ public class Ejercicio {
 	private String id_ejercicio;
 	public int dificultad;
 	public String tema;
-	public int estado;
 	
 	public Ejercicio() {
 	}
@@ -54,13 +53,6 @@ public class Ejercicio {
 	public void setDificultad(int dificultad) {
 		this.dificultad = dificultad;
 	}
-	public int getEstado() {
-		return estado;
-	}
-
-	public void setEstado(int estado) {
-		this.estado = estado;
-	}
 
 	public String getTema() {
 		return tema;
@@ -69,13 +61,12 @@ public class Ejercicio {
 	public void setTema(String tema) {
 		this.tema = tema;
 	}
-	public Ejercicio(String nombre, String descripcion, String id_ejercicio, int dificultad, String tema, int estado) {
+	public Ejercicio(String nombre, String descripcion, String id_ejercicio, int dificultad, String tema) {
 		this.nombre = nombre;
 		this.descripcion = descripcion;
 		this.id_ejercicio = id_ejercicio;
 		this.dificultad = dificultad;
 		this.tema = tema;
-		this.estado = estado;
 	}
 	
 	@Override
@@ -84,7 +75,6 @@ public class Ejercicio {
         ", descripcion=" + descripcion + 
         ", id_ejercicio=" + id_ejercicio +
         ", dificultad=" + dificultad +  
-        ", estado=" + estado +  
         "}";
     }
 

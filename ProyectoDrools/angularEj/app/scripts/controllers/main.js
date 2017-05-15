@@ -19,16 +19,20 @@ angular.module('angularEjApp')
         });
     }
 
-  	$scope.insertarAlumno = function(){
-  		var alumnoInsertar = {
-  			"nombre": $scope.nombre,
-  			"matricula": $scope.matricula
-  		}
-  		$http.post('http://localhost:8080/api/alumnos/inserta', alumnoInsertar)
-  		.then(function(response){
-  			var respuesta = response.data;
-  			$scope.resultadoInsercion =  respuesta;
-  		});
-  	}
+    $scope.insertarAlumno = function(){
+      var alumnoInsertar = {
+        "nombre": $scope.nombre,
+        "apellido": $scope.apellido,
+        "matricula": $scope.matricula,
+        "carrera": $scope.carrera,
+        "semestre": $scope.semestre
+
+      }
+      $http.post('http://localhost:8080/api/alumnos/inserta', alumnoInsertar)
+      .then(function(response){
+        var respuesta = response.data;
+        $scope.resultadoInsercion =  respuesta;
+      });
+    }
 
   }]);

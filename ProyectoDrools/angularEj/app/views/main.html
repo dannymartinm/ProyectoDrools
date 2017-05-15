@@ -4,15 +4,35 @@
 
 
 
-    <button type="button" ng-click="listado()">GET Alumnos</button>
+ <center><button class="btn btn-primary btn-sm" type="button" ng-click="listado()">GET Alumnos</button>
   <p>
    <h4>{{alumnos}}</h4></p>
+   </center>
 </div>
 <hr>
 <div>
-  <p>Nombre:
-  <input type="text" name="nombre" ng-model="nombre"></p>
-  <p>Matricula:
-  <input type="text" name="matricula" ng-model="matricula"></p>
-  <button type="button" ng-click="insertarAlumno()">Insertar</button>{{resultadoInsercion}}
+
+<div class="form-group">
+  <label>Nombre: </label>
+  <input class="form-control" type="text" name="nombre" ng-model="nombre">
+</div>
+<div class="form-group">
+  <label>Apellido:</label>
+  <input class="form-control" type="text" name="apellido" ng-model="apellido">
+</div>
+<div class="form-group">
+  <label>Matricula:</label>
+  <input class="form-control" type="text" name="matricula" ng-model="matricula">
+</div>
+<div class="form-group">
+  <label>Carrera:</label>
+  <input class="form-control" type="text" name="carrera" ng-model="carrera">
+</div>
+<div class="form-group">
+  <label>Semestre:</label>
+  <input class="form-control" type="text" name="semestre" ng-model="semestre"></p>
+</div>
+
+  <center><button class="btn btn-primary btn-sm" type="button" ng-click="insertarAlumno()">Insertar</button>{{resultadoInsercion}}</center>
+  </p>
 </div>
