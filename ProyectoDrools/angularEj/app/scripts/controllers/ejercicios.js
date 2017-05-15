@@ -24,7 +24,7 @@ angular.module('angularEjApp')
           console.log(response.data[0].matricula);
           //$log.debug("matricula"+res.nombre);
           var ejercicioInsertar = {
-        "nombreEjercicio": nombre,
+        "id_ejercicio": nombre,
         "matricula": res
       }
       console.log(nombre);

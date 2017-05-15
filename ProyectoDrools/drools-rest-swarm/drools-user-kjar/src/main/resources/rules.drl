@@ -15,9 +15,45 @@ rule "Recomendacion por promedio mayor o igual a 85"
     when
         $a: Alumno()
         $as: Asignatura()
-        $aa: AlumnoAsignatura(promedio < 85, matricula == $a.matricula, nombreAsignatura == $as.clave )
-        $ej2: Ejercicio(dificultad<=1)
+        $aa: AlumnoAsignatura(promedio >= 85, matricula == $a.matricula, clave == $as.clave )
+        $ej2: Ejercicio(dificultad==5)
     then
 
+        insert(new Recomendacion($ej2.getNombre(), $aa.getClave(), $ej2.getDificultad()));
+end
+
+rule "Recomendacion por promedio menor a 85"
+    when
+        $a: Alumno()
+        $as: Asignatura()
+        $aa: AlumnoAsignatura(promedio < 85, matricula == $a.matricula, clave == $as.clave )
+        $ej2: Ejercicio(dificultad <= 4)
+    then
+        insert(new Recomendacion($ej2.getNombre(), $as.getClave(), $ej2.getDificultad()));
+end
+
+rule "Recomendacion por estado y calif menor que 70"
+    when
+        $a : Alumno()
+        $as: Asignatura()
+        $aa: AlumnoAsignatura(promedio < 70, matricula == $a.matricula, clave == $as.clave)
+        $ej : Ejercicio(estado == 2)
+        $ae: AlumnoEjercicio (matricula == $a.matricula && id_ejercicio == $ej.id_ejercicio)
+        $ej2: Ejercicio(id_ejercicio != $ae.id_ejercicio, tema == $ej.tema && dificultad <= $ej.dificultad)
+    then
+        insert(new Recomendacion($ej2.getNombre(), $aa.getClave(), $ej2.getDificultad()));
+end
+
+rule " Recomendacion predecesor" 
+    when
+        $a : Alumno()
+        $as : Asignatura()//predecesora
+        $as2 : Asignatura() //actual
+        $alas : AlumnoAsignatura(clave == $as2.nombre && $a.matricula == matricula) 
+        $ej : Ejercicio()
+        $ase : AsignaturaEjercicio( id_ejercicio == $ej.id_ejercicio && clave == $alas.clave && predecesor == $as.clave, $alas.promedio <= 70)
+        $ej2 : Ejercicio(id_ejercicio != $ase.id_ejercicio, dificultad >= 0)
+        
+    then
         insert(new Recomendacion($ej2.getNombre(), $as.getNombre(), $ej2.getDificultad()));
 end
