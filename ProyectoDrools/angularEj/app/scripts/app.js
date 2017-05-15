@@ -44,6 +44,16 @@ angular
         controller: 'RecomendacionesCtrl',
         controllerAs: 'recomendaciones'
       })
+      .when('/misAsignaturas', {
+        templateUrl: 'views/misAsignaturas.html',
+        controller: 'MisAsignaturasCtrl',
+        controllerAs: 'misAsignaturas'
+      })
+      .when('/misEjercicios', {
+        templateUrl: 'views/misEjercicios.html',
+        controller: 'MisEjerciciosCtrl',
+        controllerAs: 'misEjercicios'
+      })
       .otherwise({
         redirectTo: '/'
       });
