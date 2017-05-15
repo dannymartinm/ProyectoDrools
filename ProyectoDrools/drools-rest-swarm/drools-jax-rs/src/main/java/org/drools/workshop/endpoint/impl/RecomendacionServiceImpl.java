@@ -26,7 +26,7 @@ public class RecomendacionServiceImpl implements RecomendacionService {
     public Recomendacion insertaRecomendacion(Recomendacion recomendacion) {
         System.out.println(">> kSession: " + kSession);
         printKieSessionAllFacts(kSession);
-        System.out.println(">> Asignatura: " + recomendacion);
+        System.out.println(">> Recomendacion: " + recomendacion);
         kSession.insert(recomendacion);
         int fired = kSession.fireAllRules();
         System.out.println(">> Fired: " + fired);
@@ -34,7 +34,7 @@ public class RecomendacionServiceImpl implements RecomendacionService {
     }
     
     @Override
-    public List<Recomendacion> getAsignatura() {
+    public List<Recomendacion> getRecomendacioo() {
         List<Recomendacion> recomendaciones = new ArrayList<Recomendacion>();
         for (Object o : kSession.getObjects()) {
             if (o instanceof Recomendacion) {
